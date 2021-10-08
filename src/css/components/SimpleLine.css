@@ -1,0 +1,20 @@
+div {
+  white-space: nowrap;
+}
+
+@keyframes streakTopToBottom {
+  from {
+    opacity: 0;
+    top:0px;
+  }
+  10% {
+    opacity: 100%;
+  }
+  20% {
+    opacity: 0;
+    top:700px;
+  }
+  to {
+    opacity: 0;
+  }
+}

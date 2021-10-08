@@ -1,0 +1,91 @@
+.navContainer {
+  height: 100vh;
+  width: 170px;
+  display: grid;
+  place-items: center;
+  place-content: center;
+  animation: navEntrance 3s linear 0s 1 normal;
+}
+
+.navUl {
+  list-style: none;
+  display: grid;
+  grid-template-columns: [col-start] 20px [text] 150px [col-end];
+  grid-template-rows: [row-start] auto repeat(6, 50px [rowline]) auto [row-end];/*[row1] 25% [row2] 25% [row3] 25% [row4] 25% [row-end]*/
+  grid-template-areas:
+    ". ."
+    "line first"
+    "line second"
+    "line third"
+    "line fourth"
+    "line fifth"
+    "line sixth"
+    ". .";
+  /*?-items aligns items within individual cells*/
+  /*justify-items: start; /* left align; start|center|end|stretch*/
+  /*align-items: end; /* align to bottom start|center|end|stretch */
+  place-items: start; /*equivalent to justify-items: center; align-items: center; */
+  /*?-content aligns everything inside the grid*/
+  /*justify-content: start|center|end|stretch|space-around|space-between|space-evenly; horizontal alignment*/
+  /*align-content: start|center|end|stretch|space-around|space-between|space-evenly; vertical alignment*/
+  place-content: space-evenly; /*equivalent to justify-content&align-content: space-evenly*/
+
+  grid-auto-rows: 30px;
+  grid-auto-columns: auto;
+  grid-auto-flow: column;
+}
+
+.navLi {
+  color: rgb(223, 194, 116);
+  cursor: pointer;
+}
+
+.navLi:hover {
+  text-decoration: underline;
+  color: white;
+  animation: changeLiColor 0.2s linear 0s 1 normal;
+  /*keyframename duration timing_fn delay iteration direction*/
+}
+
+.navLi-0 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.navLi-1 {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.navLi-2 {
+  grid-column: 2;
+  grid-row: 4;
+}
+
+.navLi-3 {
+  grid-column: 2;
+  grid-row: 5;
+}
+
+.navLi-4 {
+  grid-column: 2;
+  grid-row: 6;
+}
+
+@keyframes changeLiColor {
+  from {
+    color: rgb(223, 194, 116);
+  }
+  to {
+    color: white;
+  }
+}
+
+@keyframes navEntrance {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
