@@ -1,9 +1,9 @@
 import React from 'react';
 import SimpleLine from '../SimpleLine';
-import { defaultStyle } from '../../utils/typeCheck';
+import { defaultProps } from '../../utils/typeCheck';
 
 const Borders = (props) => {
-  const style = defaultStyle(props);
+  const style = defaultProps(props);
   /*
   const style = {
     width,

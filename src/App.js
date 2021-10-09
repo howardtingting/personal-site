@@ -6,9 +6,9 @@ import LandingPage from './pages/landingPage';
 import { useState, useEffect } from 'react';
 import { debounce } from './utils/debounce';
 import {getScreenType} from './utils/typeCheck';
+import './css/defaults/normalize.css';
 import './css/defaults/index.css';
 import './css/components/customKeyframes.css'
-import './css/defaults/normalize.css';
 
 function App() {
   const [windowType, setWindowType] = useState(getScreenType(window.innerWidth));
@@ -29,11 +29,49 @@ function App() {
       window.removeEventListener('resize', handleResize);
     }
   });
-  const navList = [
+  /*
+  {
+    text: 'Github',
+    url: 'https://github.com/howardtingting/',
+    clickHandler: (() => {window.open('https://github.com/howardtingting/');})
+  },
+  {
+    text: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/howardtingting/',
+    clickHandler: (() => {window.open('https://www.linkedin.com/in/howardtingting/');})
+  },
+  */
+  // Info: Services provided, pricing, etc.
+  // Military Tech: SJIU
+  // About: History of self
+  // Contact: contact info
+  const leftNavList = [
     {
-      text: 'Projects',
-      url: 'http://www.tingtech.us/projects',
+      text: 'Services',
+      url: 'http://www.tingtech.us/info',
       clickHandler: (() => {console.log('http://www.tingtech.us/info');})
+    },
+    {
+      text: 'Acquisition',
+      url: 'http://www.tingtech.us/military',
+      clickHandler: (() => {console.log('http://www.tingtech.us/sjiu');})
+    },
+    {
+      text: 'About Me',
+      url: 'http://www.tingtech.us/aboutme',
+      clickHandler: (() => {console.log('http://www.tingtech.us/about-me');})
+    },
+    {
+      text: 'Contact',
+      url: '',
+      clickHandler: (() => {})
+    }
+  ];
+  const rightNavList = [
+    {
+      text: 'Facebook',
+      url: 'https://www.facebook.com/HowardTingling',
+      clickHandler: (() => {console.log('http://www.tingtech.us/sjiu');})
     },
     {
       text: 'Github',
@@ -45,11 +83,6 @@ function App() {
       url: 'https://www.linkedin.com/in/howardtingting/',
       clickHandler: (() => {window.open('https://www.linkedin.com/in/howardtingting/');})
     },
-    {
-      text: 'Contact',
-      url: '',
-      clickHandler: (() => {})
-    }
   ];
   /*
   0. Global styles
@@ -61,49 +94,36 @@ function App() {
   6. Footer
   */
   const lineColor = 'linear-gradient(90deg, #DFC274 0%, #887534 35%, #DAC071 75%, #977C40 100%)' //'#8E763B'//
-  const NormalNav = (<StyledNav
-    navInputs={navList}
+  //calculate default width and height if not given based on direction
+  // vertical ? default: width based on text&&scale, height 100vh
+  // horizontal ? default: width: 100vw, height based on text&&scale
+  const LeftNav = (<StyledNav
+    leftNavInputs={leftNavList}
+    rightNavInputs={rightNavList}
+    leftPadding={90}
+    rightPadding={20}
     direction={'vertical'}
-    xPos={'50px'}
-    yPos={'30vh'}
-    scale={1.2}
+    height={'100vh'}
+    xPos={'50vw'}
+    yPos={'40vh'}
+    scale={1}
     verticalSpace={50}
     color={'#DAC071'}
+    animation={'fadeInDark'}
+    animationDuration={1.8}
     underlineColor={lineColor}
-    underlineEnter={'fadeInLeft'}/>);
+    underlineEnter={'slideInLeftDark'}
+    windowType={windowType}/>);
   //const MobileNav = ({});
   //{(windowType[0] == 'mobile') && (MobileNav)}
-  const radius = 56;
-  const circleParams = {
-    width: radius,
-    height: radius,
-    color: 'grey',
-    // color: '#DAC071',
-    borderWidth: 2,
-    opacity: '50%'
-  };
-  const circleOptions = {
-    width: radius,
-    height: radius,
-    borderWidth: 2,
-    fill: true,
-    top: `calc(50vh - ${circleParams.height/2}px)`,
-    left: `calc(50vw - ${circleParams.width/2}px)`,
-    color: circleParams.color,
-    opacity: circleParams.opacity
-  };
-  const testCircle = (<SimpleCircle options={circleOptions}/>);
-
   return (
     <div className="container">
-      {(windowType[0] !== 'mobile') && (NormalNav)}
-      {testCircle}
+      {LeftNav}
       <Borders
         width={'100vw'}
         height={'100vh'}
-        animationDuration={5}
-        />
-      {windowType[0] === 'laptop' && (<LandingPage/>)}
+        animationDuration={5}/>
+      {windowType[0] !== 'mobile' && (<LandingPage/>)}
     </div>
   );
 }

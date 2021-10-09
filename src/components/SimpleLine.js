@@ -2,12 +2,12 @@
 import React from 'react';
 import 'animate.css';
 import '../css/components/SimpleLine.css';
-import { defaultStyle } from '../utils/typeCheck';
+import { defaultProps } from '../utils/typeCheck';
 import { useState } from 'react';
 
 const SimpleLine = (props) => {
   const excludeTypes = ['width', 'height', 'color'];
-  const defaults = defaultStyle(props.options, excludeTypes);
+  const defaults = defaultProps(props.options, excludeTypes);
   let position,
     opacity,
     top,

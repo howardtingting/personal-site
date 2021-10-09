@@ -21,10 +21,16 @@ export const getScreenType = (width, height=null) => {
 }
 const pxTypes = ['top', 'bottom', 'right', 'left', 'width', 'height', 'borderWidth'];
 const timeTypes = ['animationDelay', 'animationDuration'];
-export const defaultStyle = (props, excludeTypes=[]) => {
+export const defaultProps = (props, excludeTypes=[]) => {
   const style = {};
+  // Transfer ALL props into style
+  Object.keys(props).forEach((type) => {
+    style[type] = props[type];
+  })
+  // Define default values for style
   const propTypes = {
     'position': 'absolute',
+    'cursor': 'auto',
     'opacity': '100%',
     'top': 0,
     'bottom': 0,
@@ -41,27 +47,40 @@ export const defaultStyle = (props, excludeTypes=[]) => {
     'animationIterationCount': 1,
     'animationDelay': 0,
     'animationFillMode': 'none',
-    'onAnimationEnd': (() => {})
+    'onAnimationEnd': (() => {}),
+    'windowType': getScreenType(window.innerWidth),
+    'zIndex': 'auto'
   };
+  // Normalize time and dimension inputs
   pxTypes.forEach((type) => {
     if (typeof props[type] === 'number') {
       propTypes[type] = props[type] + 'px';
+    } else if (typeof props[type] === 'string') {
+      if (typeof parseInt(props[type]) === 'number') {
+        propTypes[type] = props[type]
+      }
     }
   });
-
   timeTypes.forEach((type) => {
     if (typeof props[type] === 'number') {
       propTypes[type] = props[type] + 's';
     }
   });
-
+  // Set defaults
   Object.keys(propTypes).forEach((propName) => {
     const propVal = propTypes[propName];
     style[propName] = validCss(propName, props[propName]) ? props[propName] : propTypes[propName];
   });
 
+  // Remove defaults for original prop values for each excluded type
   excludeTypes.forEach((type) => {
     style[type] = props[type];
   })
+  // Handling miscellaneous edge cases
+  if (style.onClick) {
+    style.cursor = 'pointer';
+  } else {
+    style.onClick = (() => {});
+  }
   return style;
 }

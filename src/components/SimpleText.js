@@ -29,6 +29,7 @@ const SimpleText = (props) => {
   const click = props.click || false;
   const cursor = click ? 'pointer' : 'auto';
   const onClick = props.onClick || (()=>{ console.log(`Clicked ${content}`) });
+  const writingMode = props.writingMode || 'horizontal-tb';
 
   /* ANIMATION ELEMS */
   const animation = props.animation || 'fadeInRight';
@@ -48,7 +49,8 @@ const SimpleText = (props) => {
     animationDuration: animationDuration.toString() + 's',
     animationDirection: animationDirection,
     animationIterationCount: animationIterationCount,
-    animationDelay: animationDelay.toString() + 's'
+    animationDelay: animationDelay.toString() + 's',
+    writingMode: writingMode
   }
   if (top === '0') {
       if (bottom !== '0') { style.bottom = bottom }

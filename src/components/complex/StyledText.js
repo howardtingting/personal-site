@@ -16,6 +16,12 @@ const checkNavProps = (props) => {
     finalProps.customClick = () => {};
     finalProps.click = false;
   }
+
+  /* SHADOW SCHEMA */
+  finalProps.shadow = props.shadow || '';
+  if (!isColor(finalProps.shadow)) { finalProps.shadow = ''; }
+  finalProps.shadowOffset = props.shadowOffset || 1;
+
   /* GENERIC ELEMENTS */
   finalProps.position = props.position || 'absolute';
   finalProps.opacity = props.opacity || '100%';
@@ -24,14 +30,17 @@ const checkNavProps = (props) => {
   finalProps.right = props.right || 0;
   finalProps.left = props.left || 0;
   finalProps.color = props.color || 'white';
+  finalProps.zIndex = props.zIndex || 'auto';
+  finalProps.writingMode = props.writingMode || 'horizontal-tb';
 
   /* UNDERLINE SCHEMA */
+  finalProps.underlined = props.underlined || false;
   if (props.underlineColor) {
     finalProps.underlineColor = props.underlineColor || finalProps.color;
   } else {
     finalProps.underlineColor = 'none';
   }
-  finalProps.animation = props.animation || 'navAnim_1';
+  finalProps.animation = props.animation || 'fadeIn';
   if (props.underlineEnter || props.underlineExit || props.underlineColor) {
     finalProps.underlineEnter = props.underlineEnter || 'fadeIn';
     finalProps.underlineExit = props.underlineExit || 'fadeOut';
@@ -67,10 +76,13 @@ const checkNavProps = (props) => {
 }
 
 const StyledText = (props) => {
-  const [underlined, setUnderlined] = useState(false);
+  const [isUnderlined, setIsUnderlined] = useState(false);
   const [beenUnderlined, setBeenUnderlined] = useState(false);
   const [finishAnimation, setFinishAnimation] = useState(false);
+  const [scaleFont, setScaleFont] = useState(1);
   let click,
+    shadow,
+    shadowOffset,
     bgWidth,
     bgHeight,
     position,
@@ -82,6 +94,7 @@ const StyledText = (props) => {
     right,
     left,
     color,
+    underlined,
     underlineColor,
     underlineEnter,
     underlineExit,
@@ -97,9 +110,13 @@ const StyledText = (props) => {
     customClick,
     content,
     fontWeight,
-    fontSize;
+    fontSize,
+    writingMode,
+    zIndex;
   ({
     click,
+    shadow,
+    shadowOffset,
     bgWidth,
     bgHeight,
     position,
@@ -111,6 +128,7 @@ const StyledText = (props) => {
     right,
     left,
     color,
+    underlined,
     underlineColor,
     underlineEnter,
     underlineExit,
@@ -126,7 +144,9 @@ const StyledText = (props) => {
     customClick,
     content,
     fontWeight,
-    fontSize
+    fontSize,
+    writingMode,
+    zIndex
   } = checkNavProps(props));
   opacity = (typeof props.navIndex === 'number') ? opacityEncoding[navIndex] : opacity;
   const onAnimationEnd = () => {
@@ -139,14 +159,14 @@ const StyledText = (props) => {
 
   const onHover = () => {
     hoverCallback();
-    if (finishAnimation) {
+    if (finishAnimation && !underlined) {
       setBeenUnderlined(true);
-      setUnderlined(true);
+      setIsUnderlined(true);
     }
   }
   const onUnhover = () => {
     unhoverCallback();
-    if (finishAnimation) setUnderlined(false);
+    if (finishAnimation && !underlined) setIsUnderlined(false);
   }
 
   /* ONCLICK */
@@ -154,21 +174,8 @@ const StyledText = (props) => {
     customClick();
   }
 
-  /* STYLEDTEXT SPECIFIC ELEMS */
-  let shadow = props.shadow || '';
-  if (!isColor(shadow)) {
-    shadow = '';
-  }
-
   /* FONT SCHEMA */
-  let horizontalScale = 7.47581818,
-      verticalScale = 22;
-  if (fontWeight === 300) {
-    horizontalScale = 7.47581818;
-  } else {
-    //fontWeight===600
-    horizontalScale = 8.5750909;
-  }
+  let horizontalScale = 11.51375, verticalScale = 22;
   const length = (fontSize * horizontalScale * content.length);
   const height = (verticalScale * fontSize);
 
@@ -176,12 +183,9 @@ const StyledText = (props) => {
     position: position,
     height: bgHeight || height,
     width: bgWidth || length,
-    cursor: click ? 'pointer' : 'auto'
+    cursor: click ? 'pointer' : 'auto',
+    zIndex: zIndex
   }
-
-  // if (click) {
-  //   style.cursor = 'pointer'
-  // }
 
   if (top === 0) {
       if (bottom !== 0) {
@@ -200,9 +204,20 @@ const StyledText = (props) => {
       style.left = left;
   }
 
-  const enteringUnderlineOptions = {
+  const enteringUnderlineOptions = writingMode === 'vertical-rl'
+  ? {
+    direction: 'vertical',
+    width: '2px',
+    length: length,
+    right: bgWidth + underlinePadding,
+    color: underlineColor,
+    animation: underlineEnter,
+    animationDuration: 0.3,
+    animationDirection: animationDirection
+  }
+  : {
     direction: 'horizontal',
-    width: '1px',
+    width: '2px',
     length: length,
     top: height + underlinePadding,
     color: underlineColor,
@@ -212,9 +227,22 @@ const StyledText = (props) => {
   }
   const EnteringUnderline = (<Line options={enteringUnderlineOptions} onMouseEnter={()=>{}} onMouseLeave={()=>{}}/>);
 
-  const exitingUnderlineOptions = {
+  const exitingUnderlineOptions = writingMode === 'vertical-rl'
+  ? {
+    direction: 'vertical',
+    width: '2px',
+    opacity: 0,
+    length: length,
+    right: bgWidth + underlinePadding,
+    color: underlineColor,
+    animation: underlineExit,
+    animationDuration: 0.3,
+    animationDirection: animationDirection,
+    animationFillMode: 'forwards'
+  }
+  : {
     direction: 'horizontal',
-    width: '1px',
+    width: '2px',
     opacity: 0,
     length: length,
     top: height + underlinePadding,
@@ -228,9 +256,10 @@ const StyledText = (props) => {
 
   const ShadowText = <Text
     click={click}
+    writingMode={writingMode}
     position={position}
-    left={'1px'}
-    top={'1px'}
+    left={shadowOffset}
+    top={shadowOffset}
     content={content}
     color={shadow}
     fontSize={fontSize}
@@ -246,6 +275,7 @@ const StyledText = (props) => {
     width={bgWidth}
     height={bgHeight}
     click={click}
+    writingMode={writingMode}
     content={content}
     color={color}
     fontSize={fontSize}
@@ -261,19 +291,14 @@ const StyledText = (props) => {
     onClick={onClick}/>;
   return(
     <div style={style}>
-      {underlined && beenUnderlined && (finishAnimation || !waitAnimation) &&
+      {(underlined || (isUnderlined && beenUnderlined)) && (finishAnimation || !waitAnimation) &&
         (EnteringUnderline)}
-      {!underlined && beenUnderlined && (finishAnimation || !waitAnimation) &&
+      {!underlined && !isUnderlined && beenUnderlined && (finishAnimation || !waitAnimation) &&
         (ExitingUnderline)}
       {shadow && (ShadowText)}
       {MainText}
     </div>
   )
-  //create text and underline elems using above props
-  /*
-  1. onMouseEnter, setUnderlined
-  2. if underlined, render underline animation
-  */
 }
 
 export default StyledText;

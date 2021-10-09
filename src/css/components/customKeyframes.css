@@ -1,21 +1,139 @@
-.navAnim_1 {
-  animation-name: navAnim_1;
+/*
+  FADE IN ANIMATIONS
+  usage: fadeIn[Dark]
+  e.g. fadeIn | fadeInDark
+*/
+.fadeOut {
+  animation-name: slideOutT;
+  animation-iteration-count: infinite;
   animation-duration: 3s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
+  animation-direction: alternate;
 }
 
-.navAnim_2 {
-  animation-name: navAnim_2;
-  animation-duration: 10s;
-  animation-iteration-count: infinite;
+@keyframes slideOutT {
+  0% {
+    transform: translate(0%);
+  }
+  100% {
+    transform: translate(200%);
+  }
+}
 
+@keyframes fadeInDark {
+  0% {
+    opacity: 1%;
+  }
+  100% {
+    opacity: 40%;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 1%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+/*
+  SLIDE IN ANIMATIONS
+  usage: slideIn[Far][Left|Right][Dark]
+  e.g. slideInFarLeftDark
+*/
+
+@keyframes slideInFarLeftDark {
+  0% {
+    opacity: 1%;
+    transform: translate(-200%);
+  }
+  100% {
+    opacity: 40%;
+    transform: translate(0%);
+  }
+}
+
+@keyframes slideInFarRightDark {
+  0% {
+    opacity: 1%;
+    transform: translate(200%);
+  }
+  100% {
+    opacity: 40%;
+    transform: translate(0%);
+  }
+}
+
+@keyframes slideInFarUpDark {
+  0% {
+    opacity: 1%;
+    transform: translate(0%, 200%);
+  }
+  100% {
+    opacity: 40%;
+    transform: translate(0%, 0px);
+  }
+}
+
+@keyframes slideInFarDownDark {
+  0% {
+    opacity: 1%;
+    transform: translate(0%, -200%);
+  }
+  100% {
+    opacity: 40%;
+    transform: translate(0%, 0px);
+  }
+}
+
+@keyframes slideInLeftDark {
+  0% {
+    opacity: 1%;
+    transform: translate(-100%);
+  }
+  100% {
+    opacity: 40%;
+    transform: translate(0%);
+  }
+}
+
+@keyframes slideInRightDark {
+  0% {
+    opacity: 1%;
+    transform: translate(100%);
+  }
+  100% {
+    opacity: 40%;
+    transform: translate(0%);
+  }
+}
+
+@keyframes slideInUpDark {
+  0% {
+    opacity: 1%;
+    transform: translate(0%, 100%);
+  }
+  100% {
+    opacity: 40%;
+    transform: translate(0%, 0%);
+  }
+}
+
+@keyframes slideInDownDark {
+  0% {
+    opacity: 1%;
+    transform: translate(0%, -100%);
+  }
+  100% {
+    opacity: 40%;
+    transform: translate(0%, 0%);
+  }
 }
 
 @keyframes slideInLeft {
   0% {
     opacity: 1%;
-    transform: translate(-100%);
+    transform: translate(-100px);
   }
   100% {
     opacity: 100%;
@@ -34,6 +152,29 @@
   }
 }
 
+@keyframes slideInUp {
+  0% {
+    opacity: 1%;
+    transform: translate(0%, 100px);
+  }
+  100% {
+    opacity: 100%;
+    transform: translate(0%, 0px);
+  }
+}
+
+@keyframes slideInDown {
+  0% {
+    opacity: 1%;
+    transform: translate(0%, -100px);
+  }
+  100% {
+    opacity: 100%;
+    transform: translate(0%, 0px);
+  }
+}
+
+/* END slideIn animations */
 @keyframes blink {
   0% { opacity: 1%; }
   10% { opacity: 100%; }

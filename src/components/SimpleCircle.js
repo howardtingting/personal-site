@@ -1,12 +1,11 @@
 import React from 'react';
 import 'animate.css';
-import { defaultStyle } from '../utils/typeCheck';
+import { defaultProps } from '../utils/typeCheck';
 
 const SimpleCircle = (props) => {
-  const defaults = defaultStyle(props.options);
+  props = defaultProps(props.options);
   let position,
-    borderStyle,
-    borderWidth,
+    cursor,
     opacity,
     top,
     bottom,
@@ -15,17 +14,21 @@ const SimpleCircle = (props) => {
     width,
     height,
     color,
+    borderStyle,
+    borderWidth,
     animation,
     animationDuration,
     animationDirection,
     animationIterationCount,
     animationDelay,
     animationFillMode,
-    onAnimationEnd;
+    onAnimationEnd,
+    onClick,
+    windowType,
+    zIndex;
   ({
     position,
-    borderStyle,
-    borderWidth,
+    cursor,
     opacity,
     top,
     bottom,
@@ -34,21 +37,25 @@ const SimpleCircle = (props) => {
     width,
     height,
     color,
+    borderStyle,
+    borderWidth,
     animation,
     animationDuration,
     animationDirection,
     animationIterationCount,
     animationDelay,
     animationFillMode,
-    onAnimationEnd
-  } = defaults);
-  props = props.options;
-  console.log(`height: ${height}`)
+    onAnimationEnd,
+    onClick,
+    windowType,
+    zIndex
+  } = props);
   const centerX = `calc(50vw - ${parseInt(width)/2}px)`
   const centerY = `calc(50vh - ${parseInt(height)/2}px)`
   const bottomY = `calc(100vh - ${parseInt(height)+20}px)`
   const style = {
     position: 'absolute',
+    cursor: cursor,
     top: bottomY,
     left: centerX,
     width: width,
@@ -60,7 +67,11 @@ const SimpleCircle = (props) => {
     animationIterationCount: animationIterationCount,
     animationDelay: animationDelay,
     animationFillMode: animationFillMode,
-    borderRadius: '100%'
+    borderRadius: '100%',
+    display:'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: zIndex
   }
   if (props.fill) {
     style.backgroundColor = color
@@ -69,18 +80,9 @@ const SimpleCircle = (props) => {
     style.borderWidth = borderWidth;
     style.borderColor=color;
   }
-  style.zIndex=9002
-  //create div with border radius
-  /*
-  Usage:
-  <SimpleCircle
-  width={50},
-  height={100},
-  color={'green'}/>
-  */
-  //Insert content into center of div
   return(
-    <div style={style}>
+    <div style={style} onClick={onClick}>
+      <span style={{color:'white'}}>{props.content}</span>
     </div>)
 }
 
