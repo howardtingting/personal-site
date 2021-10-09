@@ -265,7 +265,7 @@ const StyledText = (props) => {
     fontSize={fontSize}
     opacity={opacity}
     animation={animation}
-    animationDuration={animationDuration+0.1}
+    animationDuration={animationDuration+0.05}
     animationDirection={animationDirection}
     animationIterationCount={animationIterationCount}
     animationDelay={animationDelay}

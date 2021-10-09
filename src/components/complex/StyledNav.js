@@ -171,7 +171,7 @@ const StyledNav = (props) => {
       top={(scale*verticalSpace*index).toString() + 'px'}
       left={leftPadding}
       bgWidth={(text.length * horizontalScale * scale)}
-      bgHeight={bgHeight/leftNavInputs.length}
+      bgHeight={bgHeight/leftNavInputs.length + 1}
       color={color}
       animation={animation}
       animationDuration={calculatedDuration}
@@ -248,7 +248,7 @@ const StyledNav = (props) => {
     position: 'absolute',
     width: bgWidth*2,
     height: bgHeight,
-    zIndex:9001
+    zIndex:1
   }
   const leftListStyle = {
     height: oldBgDims[1],
@@ -259,8 +259,11 @@ const StyledNav = (props) => {
   const rightNavStyle = {...leftNavStyle}
   const rightListStyle = {...leftListStyle}
   rightNavStyle.right=0;
+  rightNavStyle.width = verticalScale * 2;
   rightListStyle.height = rightVerticalHeight;
   rightListStyle.right = verticalScale;
+  rightListStyle.width = verticalScale;
+  rightListStyle.zIndex = 1;
   const leftNavExpanded = (
     <div style={leftNavStyle}>
       {border && (<Borders width={bgWidth} height={bgHeight}/>)}

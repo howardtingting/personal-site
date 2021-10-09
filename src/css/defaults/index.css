@@ -4,9 +4,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background: url('../../assets/black-leather-texture.jpg');*/
-  /* background: #000000fa; */
-  background: url('../../assets/unsplash_bg0.jpg') no-repeat center fixed;
-  background-size: cover;
+  background: #2D2338ff;
+  /* background: url('../../assets/unsplash_bg0.jpg') no-repeat center fixed; */
+  /* background-image: url('../../assets/fire_01.gif'); */
+
   overflow-x: hidden;
   font-family: 'Noto Sans Mono', monospace;
   font-weight: 300;
@@ -17,6 +18,10 @@ body {
   position: absolute;
   min-height: 100%;
   width: 100%;
+  background-image: url('../../assets/game_fire.gif');
+  background-size: 50vw;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 code {

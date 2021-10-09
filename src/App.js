@@ -110,7 +110,7 @@ function App() {
     verticalSpace={50}
     color={'#DAC071'}
     animation={'fadeInDark'}
-    animationDuration={1.8}
+    animationDuration={'2s'}
     underlineColor={lineColor}
     underlineEnter={'slideInLeftDark'}
     windowType={windowType}/>);
