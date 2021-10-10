@@ -40,7 +40,7 @@ const checkNavProps = (props) => {
   } else {
     finalProps.underlineColor = 'none';
   }
-  finalProps.animation = props.animation || 'fadeIn';
+  finalProps.animationName = props.animationName || 'fadeIn';
   if (props.underlineEnter || props.underlineExit || props.underlineColor) {
     finalProps.underlineEnter = props.underlineEnter || 'fadeIn';
     finalProps.underlineExit = props.underlineExit || 'fadeOut';
@@ -50,7 +50,7 @@ const checkNavProps = (props) => {
   }
 
   /* ANIMATION ELEMS */
-  finalProps.animation = props.animation || '';
+  finalProps.animationName = props.animationName || '';
   finalProps.animationDuration = props.animationDuration || 5;
   finalProps.animationDirection = props.animationDirection || 'normal';
   finalProps.animationIterationCount = props.animationIterationCount || 1;
@@ -60,9 +60,9 @@ const checkNavProps = (props) => {
   finalProps.hoverCallback = props.onHover ? props.onHover : (() => {});
   finalProps.unhoverCallback = props.onUnhover ? props.onUnhover : (() => {});
 
-  finalProps.content = props.content || 'Place Content Here';
+  finalProps.textContent = props.textContent || 'Place Content Here';
   finalProps.fontWeight = props.fontWeight || 300;
-  finalProps.fontSize = props.fontSize || 1;
+  finalProps.fontScale = props.fontScale || 1;
 
   /* BACKGROUND SIZE SCHEMA */
   finalProps.bgWidth = props.bgWidth || 0;
@@ -99,7 +99,7 @@ const StyledText = (props) => {
     underlineEnter,
     underlineExit,
     underlinePadding,
-    animation,
+    animationName,
     animationDuration,
     animationDirection,
     animationIterationCount,
@@ -108,9 +108,9 @@ const StyledText = (props) => {
     hoverCallback,
     unhoverCallback,
     customClick,
-    content,
+    textContent,
     fontWeight,
-    fontSize,
+    fontScale,
     writingMode,
     zIndex;
   ({
@@ -133,7 +133,7 @@ const StyledText = (props) => {
     underlineEnter,
     underlineExit,
     underlinePadding,
-    animation,
+    animationName,
     animationDuration,
     animationDirection,
     animationIterationCount,
@@ -142,9 +142,9 @@ const StyledText = (props) => {
     hoverCallback,
     unhoverCallback,
     customClick,
-    content,
+    textContent,
     fontWeight,
-    fontSize,
+    fontScale,
     writingMode,
     zIndex
   } = checkNavProps(props));
@@ -176,8 +176,8 @@ const StyledText = (props) => {
 
   /* FONT SCHEMA */
   let horizontalScale = 11.51375, verticalScale = 22;
-  const length = (fontSize * horizontalScale * content.length);
-  const height = (verticalScale * fontSize);
+  const length = (fontScale * horizontalScale * textContent.length);
+  const height = (verticalScale * fontScale);
 
   const style = {
     position: position,
@@ -207,64 +207,65 @@ const StyledText = (props) => {
   const enteringUnderlineOptions = writingMode === 'vertical-rl'
   ? {
     direction: 'vertical',
-    width: '2px',
+    width: '1px',
     length: length,
     right: bgWidth + underlinePadding,
     color: underlineColor,
-    animation: underlineEnter,
+    animationName: underlineEnter,
     animationDuration: 0.3,
-    animationDirection: animationDirection
+    animationDirection: animationDirection,
+    animationFillMode: 'forwards'
   }
   : {
     direction: 'horizontal',
-    width: '2px',
+    width: '1px',
     length: length,
     top: height + underlinePadding,
     color: underlineColor,
-    animation: underlineEnter,
+    animationName: underlineEnter,
     animationDuration: 0.3,
-    animationDirection: animationDirection
+    animationDirection: animationDirection,
+    animationFillMode: 'forwards'
   }
   const EnteringUnderline = (<Line options={enteringUnderlineOptions} onMouseEnter={()=>{}} onMouseLeave={()=>{}}/>);
 
   const exitingUnderlineOptions = writingMode === 'vertical-rl'
   ? {
     direction: 'vertical',
-    width: '2px',
+    width: '1px',
     opacity: 0,
     length: length,
     right: bgWidth + underlinePadding,
     color: underlineColor,
-    animation: underlineExit,
+    animationName: underlineExit,
     animationDuration: 0.3,
     animationDirection: animationDirection,
     animationFillMode: 'forwards'
   }
   : {
     direction: 'horizontal',
-    width: '2px',
+    width: '1px',
     opacity: 0,
     length: length,
     top: height + underlinePadding,
     color: underlineColor,
-    animation: underlineExit,
+    animationName: underlineExit,
     animationDuration: 0.3,
     animationDirection: animationDirection,
     animationFillMode: 'forwards'
   };
   const ExitingUnderline = (<Line options={exitingUnderlineOptions} onMouseEnter={()=>{}} onMouseLeave={()=>{}}/>);
-
   const ShadowText = <Text
     click={click}
     writingMode={writingMode}
     position={position}
     left={shadowOffset}
     top={shadowOffset}
-    content={content}
+    textContent={textContent}
     color={shadow}
-    fontSize={fontSize}
+    fontScale={fontScale}
     opacity={opacity}
-    animation={animation}
+    animationName={animationName}
     animationDuration={animationDuration+0.05}
     animationDirection={animationDirection}
     animationIterationCount={animationIterationCount}
@@ -276,11 +277,11 @@ const StyledText = (props) => {
     height={bgHeight}
     click={click}
     writingMode={writingMode}
-    content={content}
+    textContent={textContent}
     color={color}
-    fontSize={fontSize}
+    fontScale={fontScale}
     opacity={opacity}
-    animation={animation}
+    animationName={animationName}
     animationDuration={animationDuration}
     animationDirection={animationDirection}
     animationIterationCount={animationIterationCount}

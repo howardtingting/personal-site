@@ -1,10 +1,6 @@
 // LANDING PAGE
 import React from 'react';
-import SimpleLine from '../components/SimpleLine';
-import Text from '../components/SimpleText';
-import StyledText from '../components/complex/StyledText';
-import { debounce } from '../utils/debounce';
-import '../css/components/customKeyframes.css';
+import StyledText from '../../components/complex/StyledText';
 import { useState, useEffect } from 'react';
 
 /*
@@ -13,21 +9,7 @@ import { useState, useEffect } from 'react';
 3. Action Call
 */
 
-const LandingPage = React.memo(() => {
-  const [hoverSDE, setHoverSDE] = useState(false);
-  const [finishAnimation, setFinishAnimation] = useState(false);
-  const onHoverSDE = () => { setHoverSDE(true); }
-  const onUnhoverSDE = () => { setHoverSDE(false);}
-
-  // {finishAnimation && (<StyledText
-  //     click={true}
-  //     content={"<Software Engineer>"}
-  //     bottom={"1224px"}
-  //     left={"60vw"}
-  //     fontSize={1.3}
-  //     color={'#DAC071'}
-  //     animation={'fadeInUp'}
-  //     animationDuration={'3s'}/>)}
+const LandingPage = React.memo((props) => {
   //910-1860
   //480-910
   //1860-3600
@@ -39,17 +21,17 @@ const LandingPage = React.memo(() => {
   const [consultOpacity, setConsultOpacity] = useState(noHighlight);
 
   const LogoText = (<StyledText
-    content={"TingTech"}
+    textContent={"TingTech"}
     zIndex={9003}
     top={"40px"}
     left={'40px'}
-    fontSize={0.9}
+    fontScale={0.9}
     opacity={logoOpacity}
     onHover={() => { setLogoOpacity(noHighlight); }}
     onUnhover={() => { setLogoOpacity(highlight); }}
     onClick={() => {window.location.reload()}}
     color={'#DAC071'}
-    animation={'fadeIn'}
+    animationName={'fadeIn'}
     animationDuration={1}
     shadow={'red'}
     shadowOffset={0.5}
@@ -57,60 +39,63 @@ const LandingPage = React.memo(() => {
     underlineColor={'transparent'}/>);
 
   const NameText = (<StyledText
-    content={"Howard Ting"}
-    bottom={"199px"}
-    right={'10vw'}
-    fontSize={5}
+    textContent={"Howard Ting"}
+    bottom={'calc(50vh - 20px)'}
+    left={'50vw'}
+    fontScale={3}
     opacity={nameOpacity}
     color={'#DAC071'}
-    animation={'slideInRightDark'}
+    animationName={'slideInRightDark'}
     underlineEnter={'slideInRight'}
     underlineExit={'fadeOut'}
+    underlinePadding={10}
     animationDuration={2}
     shadow={'red'}
     scaleSize={true}
     underlined={true}
-    underlineColor={'linear-gradient(90deg, #000 0%, #DFC274 5%, #887534 35%, #DAC071 85%, #000 100%)'}
-    onAnimationEnd={()=>{setFinishAnimation(true)}}/>);
+    underlineColor={'#9A8541'}
+    onAnimationEnd={()=>{}}/>);
 
   const DeveloperText = (<StyledText
-    content={"<Web Development>"}
+    textContent={"<Web Development>"}
     onClick={()=>{console.log('Navigating to Projects/Archive')}}
-    bottom={"165px"}
+    bottom={"155px"}
     right={'14vw'}
-    fontSize={1}
+    fontScale={1}
     opacity={devOpacity}
     onHover={() => { setDevOpacity(highlight); }}
     onUnhover={() => { setDevOpacity(noHighlight); }}
     color={'#DAC071'}
-    animation={'slideInUpDark'}
-    underlineEnter={'slideInRight'}
+    animationName={'slideInUpDark'}
+    underlineEnter={'slideInRightDark'}
     underlineExit={'fadeOut'}
     underlinePadding={4}
-    animationDuration={3.7}
+    animationDuration={2.3}
     shadow={'red'}
-    underlineColor={'linear-gradient(90deg, #000 0%, #DFC274 5%, #887534 35%, #DAC071 85%, #000 100%)'}
-    onAnimationEnd={()=>{setFinishAnimation(true)}}
+    shadowOffset={0.5}
+    underlineColor={'#9A8541'}
+    onAnimationEnd={()=>{}}
   />);
 
   const ConsultText = (<StyledText
-    content={"<Software Consultation>"}
+    textContent={"<Software Consultation>"}
     onClick={()=>{console.log('Navigating to Projects/Archive')}}
-    bottom={"165px"}
+    bottom={"155px"}
     right={'calc(14vw + 233px)'}
-    fontSize={1}
+    fontScale={1}
     opacity={consultOpacity}
     onHover={() => { setConsultOpacity(highlight); }}
     onUnhover={() => { setConsultOpacity(noHighlight); }}
     color={'#DAC071'}
-    animation={'slideInFarUpDark'}
-    underlineEnter={'slideInRight'}
+    animationName={'slideInFarUpDark'}
+    underlineEnter={'slideInRightDark'}
     underlineExit={'fadeOut'}
     underlinePadding={4}
-    animationDuration={2.8}
+    animationDuration={2.25}
     shadow={'red'}
-    underlineColor={'linear-gradient(90deg, #000 0%, #DFC274 5%, #887534 35%, #DAC071 85%, #000 100%)'}
-    onAnimationEnd={()=>{setFinishAnimation(true)}}
+    shadowOffset={0.5}
+    underlineColor={'#9A8541'}
+    onAnimationEnd={()=>{/*last animation; do something*/}}
   />);
 
 

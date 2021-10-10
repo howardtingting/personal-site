@@ -2,13 +2,14 @@ import React from 'react';
 import StyledNav from './components/complex/StyledNav';
 import SimpleCircle from './components/SimpleCircle'
 import Borders from './components/complex/Borders';
-import LandingPage from './pages/landingPage';
+import * as laptop from './pages/laptop/laptop';
+import * as mobile from './pages/mobile/mobile';
 import { useState, useEffect } from 'react';
 import { debounce } from './utils/debounce';
+import * as scrollControl from './utils/scrollControl';
 import {getScreenType} from './utils/typeCheck';
 import './css/defaults/normalize.css';
 import './css/defaults/index.css';
-import './css/components/customKeyframes.css'
 
 function App() {
   const [windowType, setWindowType] = useState(getScreenType(window.innerWidth));
@@ -71,7 +72,7 @@ function App() {
     {
       text: 'Facebook',
       url: 'https://www.facebook.com/HowardTingling',
-      clickHandler: (() => {console.log('http://www.tingtech.us/sjiu');})
+      clickHandler: (() => {window.open('https://www.facebook.com/HowardTingling');})
     },
     {
       text: 'Github',
@@ -109,7 +110,7 @@ function App() {
     scale={1}
     verticalSpace={50}
     color={'#DAC071'}
-    animation={'fadeInDark'}
+    animationName={'fadeInDark'}
     animationDuration={'2s'}
     underlineColor={lineColor}
     underlineEnter={'slideInLeftDark'}
@@ -123,7 +124,8 @@ function App() {
         width={'100vw'}
         height={'100vh'}
         animationDuration={5}/>
-      {windowType[0] !== 'mobile' && (<LandingPage/>)}
+      {windowType[0] !== 'mobile' && (<laptop.LandingPage/>)}
+      {windowType[0] === 'mobile' && (<mobile.LandingPage/>)}
     </div>
   );
 }

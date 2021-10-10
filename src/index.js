@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './css/components/customKeyframes.css'
 import App from './App';
 
 document.body.style.overflow='hidden';

@@ -1,9 +1,9 @@
 import React from 'react';
 import SimpleLine from '../SimpleLine';
-import { defaultProps } from '../../utils/typeCheck';
+import { defaultProps_ } from '../../utils/typeCheck';
 
 const Borders = (props) => {
-  const style = defaultProps(props);
+  const style = defaultProps_(props);
   /*
   const style = {
     width,
@@ -15,8 +15,8 @@ const Borders = (props) => {
     bottom,
     etc.
   }*/
-  const horizontalColor = props.color ? props.color : 'linear-gradient(90deg, #000 0%, #DFC274 5%, #887534 35%, #DAC071 85%, #000 100%)';
-  const verticalColor = props.color ? props.color : 'linear-gradient(0deg, #000 0%, #DFC274 5%, #887534 35%, #DAC071 85%, #000 100%)';
+  const horizontalColor = props.color ? props.color : '#9A8541';
+  const verticalColor = props.color ? props.color : '#9A8541';
   let leftAnimation = props.animation || 'fadeInLeft';
   let rightAnimation = props.animation || 'fadeInRight';
   let upAnimation = props.animation || 'fadeInUp';
@@ -39,7 +39,7 @@ const Borders = (props) => {
     width:1,
     length:style.width,
     color:horizontalColor,
-    animation:leftAnimation,
+    animationName:leftAnimation,
     animationDuration:style.animationDuration,
   }
 
@@ -49,7 +49,7 @@ const Borders = (props) => {
     width:1,
     length:style.width,
     color:horizontalColor,
-    animation:rightAnimation,
+    animationName:rightAnimation,
     animationDuration:style.animationDuration,
   }
 
@@ -58,7 +58,7 @@ const Borders = (props) => {
     width:1,
     length:style.height,
     color:verticalColor,
-    animation:upAnimation,
+    animationName:upAnimation,
     animationDuration:style.animationDuration,
   }
 
@@ -67,7 +67,7 @@ const Borders = (props) => {
     width:1,
     length:style.height,
     color:verticalColor,
-    animation:downAnimation,
+    animationName:downAnimation,
     animationDuration:style.animationDuration,
   }
   const TopBorder = (<SimpleLine options={topOptions}/>),

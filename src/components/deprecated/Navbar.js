@@ -48,9 +48,7 @@ const Navbar = ({ navList, navType, navURLs }) => {
     return (<li key={key++} className={`${liStyle} ${liBase}`}> {navItem} </li>)
   }
   const ul = []
-  console.log(navList)
   for (let i = 0; i < navList.length; i++) {
-    console.log(navList[i])
     ul.push(liGenerator(navList[i]))
   }
   return (
@@ -60,7 +58,7 @@ const Navbar = ({ navList, navType, navURLs }) => {
   )
 }
 
-Navbar.defaultProps = {
+Navbar.defaultProps_ = {
   title: 'Default TingTech Header',
 }
 

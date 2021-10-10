@@ -89,7 +89,7 @@ const Navbar = React.memo((props) => {
       key={key}
       dataKey={key}
       animationDuration={key}
-      animation={animation}
+      animationName={animation}
       clickHandler={navItem.clickHandler}
       text={navItem.text}/>);
   }

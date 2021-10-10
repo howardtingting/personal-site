@@ -2,12 +2,29 @@
 import React from 'react';
 import 'animate.css';
 import '../css/components/SimpleLine.css';
-import { defaultProps } from '../utils/typeCheck';
+import { defaultProps_ } from '../utils/typeCheck';
 import { useState } from 'react';
+
+/*
+USAGE:
+EXAMPLE horizontal line with 1px width and 100px length; sits centered 1px from the top of containing div
+options = {
+  direction: 'horizontal',
+  width: '1px',
+  length: 100px,
+  top: 1px,
+  color: 'green',
+  animationName: 'fadeIn',
+  animationDuration: 0.3,
+  animationDirection: animationDirection,
+  animationFillMode: 'forwards'
+}
+<SimpleLine options={options}/>
+*/
 
 const SimpleLine = (props) => {
   const excludeTypes = ['width', 'height', 'color'];
-  const defaults = defaultProps(props.options, excludeTypes);
+  const defaults = defaultProps_(props.options, excludeTypes);
   let position,
     opacity,
     top,
@@ -17,7 +34,7 @@ const SimpleLine = (props) => {
     width,
     height,
     color,
-    animation,
+    animationName,
     animationDuration,
     animationDirection,
     animationIterationCount,
@@ -34,7 +51,7 @@ const SimpleLine = (props) => {
     width,
     height,
     color,
-    animation,
+    animationName,
     animationDuration,
     animationDirection,
     animationIterationCount,
@@ -53,13 +70,13 @@ const SimpleLine = (props) => {
   const style = {
     position: position,
     background: color,
-    opacity: opacity.toString() + '%',
+    opacity: opacity,
     minWidth: xy[0],
     minHeight: xy[1],
     maxWidth: xy[0],
     maxHeight: xy[1],
     overflow: 'hidden',
-    animation: animation,
+    animationName: animationName,
     animationDuration: animationDuration,
     animationDirection: animationDirection,
     animationIterationCount: animationIterationCount,

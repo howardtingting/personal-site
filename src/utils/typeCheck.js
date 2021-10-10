@@ -21,7 +21,7 @@ export const getScreenType = (width, height=null) => {
 }
 const pxTypes = ['top', 'bottom', 'right', 'left', 'width', 'height', 'borderWidth'];
 const timeTypes = ['animationDelay', 'animationDuration'];
-export const defaultProps = (props, excludeTypes=[]) => {
+export const defaultProps_ = (props, excludeTypes=[]) => {
   const style = {};
   // Transfer ALL props into style
   Object.keys(props).forEach((type) => {
@@ -31,7 +31,7 @@ export const defaultProps = (props, excludeTypes=[]) => {
   const propTypes = {
     'position': 'absolute',
     'cursor': 'auto',
-    'opacity': '100%',
+    'opacity': 1,
     'top': 0,
     'bottom': 0,
     'right': 0,
@@ -83,4 +83,32 @@ export const defaultProps = (props, excludeTypes=[]) => {
     style.onClick = (() => {});
   }
   return style;
+}
+
+export const defaultProps = (props, defaults) => {
+  const finalProp = {}
+  pxTypes.forEach((type) => {
+    if (typeof props[type] === 'number') {
+      defaults[type] = props[type] + 'px';
+    } else if (typeof props[type] === 'string') {
+      if (typeof parseInt(props[type]) === 'number') {
+        defaults[type] = props[type]
+      }
+    }
+    finalProp[type] = defaults[type];
+  });
+  timeTypes.forEach((type) => {
+    if (typeof props[type] === 'number') {
+      defaults[type] = props[type] + 's';
+    }
+    finalProp[type] = defaults[type];
+  });
+  Object.keys(defaults).forEach((propName) => {
+    if (validCss(propName, defaults[propName])) {
+      finalProp[propName] = validCss(propName, props[propName]) ? props[propName] : defaults[propName];
+    } else {
+      finalProp[propName] = defaults[propName]
+    }
+  });
+  return finalProp;
 }

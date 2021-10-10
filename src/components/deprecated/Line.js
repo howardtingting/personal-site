@@ -41,7 +41,7 @@ const Line = (props) => {
   );
 }
 
-Line.defaultProps = {
+Line.defaultProps_ = {
   /*
     only horizontal and vertical lines: divs with following characteristics:
     length:

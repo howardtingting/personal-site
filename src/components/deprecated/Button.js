@@ -29,7 +29,7 @@ const Button = ({ text, style }) => {
   )
 }
 
-Button.defaultProps = {
+Button.defaultProps_ = {
   style: {color: 'white', backgroundColor: 'black'},
   text: 'Default TingTech Button'
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import 'animate.css';
-import { defaultProps } from '../utils/typeCheck';
+import { defaultProps_ } from '../utils/typeCheck';
 
 const SimpleCircle = (props) => {
-  props = defaultProps(props.options);
+  props = defaultProps_(props.options);
   let position,
     cursor,
     opacity,
@@ -16,7 +16,7 @@ const SimpleCircle = (props) => {
     color,
     borderStyle,
     borderWidth,
-    animation,
+    animationName,
     animationDuration,
     animationDirection,
     animationIterationCount,
@@ -39,7 +39,7 @@ const SimpleCircle = (props) => {
     color,
     borderStyle,
     borderWidth,
-    animation,
+    animationName,
     animationDuration,
     animationDirection,
     animationIterationCount,
@@ -61,7 +61,7 @@ const SimpleCircle = (props) => {
     width: width,
     height: height,
     opacity: opacity,
-    animation: animation,
+    animationName: animationName,
     animationDuration: animationDuration,
     animationDirection: animationDirection,
     animationIterationCount: animationIterationCount,

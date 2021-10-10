@@ -3,9 +3,8 @@ import StyledText from './StyledText';
 import SimpleCircle from '../SimpleCircle';
 import Borders from './Borders';
 import Burger from '../icons/Burger'
-import { isColor, getScreenType, defaultProps } from '../../utils/typeCheck';
+import { isColor, getScreenType, defaultProps_ } from '../../utils/typeCheck';
 import { useState } from 'react'
-import '../../css/components/customKeyframes.css';
 /*
 Usage:
 <StyledNav
@@ -60,7 +59,7 @@ const checkNavProps = (props) => {
   } else {
     finalProps.underlineColor = 'none';
   }
-  finalProps.animation = props.animation || 'fadeIn';
+  finalProps.animationName = props.animationName || 'fadeIn';
   finalProps.animationDuration = props.animationDuration || 2;
   if (props.underlineEnter || props.underlineExit || props.underlineColor) {
     finalProps.underlineEnter = props.underlineEnter || 'fadeIn';
@@ -78,7 +77,7 @@ const checkNavProps = (props) => {
 }
 
 const StyledNav = (props) => {
-  props = defaultProps(props);
+  props = defaultProps_(props);
   let scale,
       verticalSpace,
       xPos,
@@ -89,7 +88,7 @@ const StyledNav = (props) => {
       color,
       bgColor,
       underlineColor,
-      animation,
+      animationName,
       animationDuration,
       underlineEnter,
       underlineExit,
@@ -109,7 +108,7 @@ const StyledNav = (props) => {
     color,
     bgColor,
     underlineColor,
-    animation,
+    animationName,
     animationDuration,
     underlineEnter,
     underlineExit,
@@ -166,16 +165,16 @@ const StyledNav = (props) => {
       navIndex={index}
       position={'absolute'}
       onClick={onClick}
-      content={text}
+      textContent={text}
       fontSize={scale}
       top={(scale*verticalSpace*index).toString() + 'px'}
       left={leftPadding}
       bgWidth={(text.length * horizontalScale * scale)}
       bgHeight={bgHeight/leftNavInputs.length + 1}
       color={color}
-      animation={animation}
+      animationName={animationName}
       animationDuration={calculatedDuration}
-      waitAnimation={true}
+      waitanimationName={true}
       onHover={onHover}
       onUnhover={onUnhover}
       underlineEnter={underlineEnter}
@@ -214,23 +213,19 @@ const StyledNav = (props) => {
       navIndex={index}
       position={'absolute'}
       onClick={onClick}
-      content={text}
-      fontSize={scale}
+      textContent={text}
+      fontScale={scale*0.9}
       top={((topSpace * horizontalScale * scale) + (verticalSpace*index)).toString() + 'px'}
       right={'0px'}
       bgWidth={(verticalScale * scale)}
       bgHeight={(text.length*horizontalScale*scale) + verticalSpace}
       writingMode={'vertical-rl'}
       color={color}
-      animation={animation}
+      animationName={animationName}
       animationDuration={calculatedDuration}
-      waitAnimation={true}
+      waitanimationName={true}
       onHover={onHover}
-      onUnhover={onUnhover}
-      underlineEnter={underlineEnter}
-      underlineExit={underlineExit}
-      underlinePadding={7}
-      underlineColor={underlineColor}/>);
+      onUnhover={onUnhover}/>);
     rightNavBar.push(NavItem);
     topSpace += text.length;
     rightVerticalHeight += (text.length*horizontalScale*scale) + verticalSpace;

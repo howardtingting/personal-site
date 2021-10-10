@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import {useState,useEffect} from 'react'
+import {defaultProps} from '../utils/typeCheck';
 import 'animate.css';
-import '../css/components/customKeyframes.css';
 /*
 <SimpleText
   content = {"Howard Ting"}
@@ -11,45 +11,49 @@ import '../css/components/customKeyframes.css';
 />
 */
 const SimpleText = (props) => {
-  const content = props.content || 'Place Content Here';
-  const width = props.width || 0;
-  const height = props.height || 0;
-  const bgWidth = props.bgWidth || '100%';
-  const bgHeight = props.bgHeight || '100%';
-  const color = props.color || 'white';
-  const onHover = props.onHover ? props.onHover : (() => {});
-  const onUnhover = props.onUnhover ? props.onUnhover : (() => {});
-  const fontSize = props.fontSize || 1;
-  const position = props.position || 'absolute';
-  const top = props.top || '0';
-  const bottom = props.bottom || '0';
-  const right = props.right || '0';
-  const left = props.left || '0';
-  const opacity = props.opacity || '100%';
-  const click = props.click || false;
-  const cursor = click ? 'pointer' : 'auto';
-  const onClick = props.onClick || (()=>{ console.log(`Clicked ${content}`) });
-  const writingMode = props.writingMode || 'horizontal-tb';
-
-  /* ANIMATION ELEMS */
-  const animation = props.animation || 'fadeInRight';
-  const animationDuration = props.animationDuration || 5;
-  const animationDirection = props.animationDirection || 'normal';
-  const animationIterationCount = props.animationIterationCount || 1;
-  const animationDelay = props.animationDelay || 0;
-  const onAnimationEnd = props.onAnimationEnd || (() => {});
+  // USES defaultProps()
+  const defaults = {
+    textContent: 'Place Content Here',
+    width: 0,
+    height: 0,
+    bgWidth: '100%',
+    bgHeight: '100%',
+    color: 'white',
+    onHover: (() => {}),
+    onUnhover: (() => {}),
+    fontScale: 1,
+    position: 'absolute',
+    top: '0',
+    bottom: '0',
+    right: '0',
+    left: '0',
+    opacity: '100%',
+    click: props.onClick ? true : false,
+    cursor: props.onClick ? 'pointer' : 'auto',
+    onClick: (()=>{ console.log(`Clicked SimpleText component`) }),
+    writingMode: 'horizontal-tb',
+    animationName: 'fadeInRight',
+    animationDuration: 5,
+    animationDirection: 'normal',
+    animationIterationCount: 1,
+    animationDelay: 0,
+    onAnimationEnd: (() => {})
+  }
+  props = defaultProps(props, defaults);
+  let textContent, width, height, bgWidth, bgHeight, color, onHover, onUnhover, fontScale, position, top, bottom, right, left, opacity, click, cursor, onClick, writingMode, animationName, animationDuration, animationDirection, animationIterationCount, animationDelay, onAnimationEnd;
+  ({textContent, width, height, bgWidth, bgHeight, color, onHover, onUnhover, fontScale, position, top, bottom, right, left, opacity, click, cursor, onClick, writingMode, animationName, animationDuration, animationDirection, animationIterationCount, animationDelay, onAnimationEnd} = props)
   const style = {
     cursor: cursor,
     color: color,
     userSelect: 'none',
-    fontSize: fontSize.toString() + 'em',
+    fontSize: fontScale.toString() + 'em',
     position: position,
     opacity: opacity,
-    animation: animation,
-    animationDuration: animationDuration.toString() + 's',
+    animationName: animationName,
+    animationDuration: animationDuration,
     animationDirection: animationDirection,
     animationIterationCount: animationIterationCount,
-    animationDelay: animationDelay.toString() + 's',
+    animationDelay: animationDelay,
     writingMode: writingMode
   }
   if (top === '0') {
@@ -72,17 +76,17 @@ const SimpleText = (props) => {
       <span
         style={style}
         onClick={onClick}
-        onAnimationEnd={onAnimationEnd}>{ content }</span>
+        onAnimationEnd={onAnimationEnd}>{ textContent }</span>
     </div>
   )
 }
 
 SimpleText.defaultProps = {
-  content: 'Place Content Here',
+  textContent: 'Place Content Here',
 }
 
 SimpleText.propTypes = {
-  content: PropTypes.string, //.isRequired
+  textContent: PropTypes.string, //.isRequired
 }
 
 export default SimpleText
