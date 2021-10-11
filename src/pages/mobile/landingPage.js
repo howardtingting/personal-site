@@ -1,6 +1,7 @@
 // LANDING PAGE
 import React from 'react';
 import StyledText from '../../components/complex/StyledText';
+import SimpleLine from '../../components/SimpleLine';
 import { useState, useEffect } from 'react';
 
 /*
@@ -20,6 +21,9 @@ const LandingPage = React.memo((props) => {
   const [devOpacity, setDevOpacity] = useState(noHighlight);
   const [consultOpacity, setConsultOpacity] = useState(noHighlight);
 
+  /* FONT SCHEMA */
+  let horizontalScale = 11.51375, verticalScale = 22;
+
   const LogoText = (<StyledText
     textContent={"TingTech"}
     zIndex={9003}
@@ -38,60 +42,88 @@ const LandingPage = React.memo((props) => {
     underlined={true}
     underlineColor={'transparent'}/>);
 
+  const nameFontScale = 1.5;
+  const nameTextContent = "Howard Ting";
+  const nameTextWidth = nameTextContent.length * horizontalScale * nameFontScale;
+  const nameTextHeight = nameFontScale * verticalScale;
+
   const NameText = (<StyledText
     textContent={"Howard Ting"}
-    bottom={'calc(50vh - 20px)'}
-    left={'50vw'}
-    fontScale={3}
+    bottom={`calc(50vh - ${nameTextHeight*2}px)`}
+    left={`calc(50vw - ${nameTextWidth/2}px)`}
+    fontScale={nameFontScale}
     opacity={nameOpacity}
     color={'#DAC071'}
-    animationName={'slideInRightDark'}
-    underlineEnter={'slideInRight'}
+    animationName={'fadeInDark'}
+    underlineEnter={'fadeIn'}
     underlineExit={'fadeOut'}
     underlinePadding={10}
-    animationDuration={2}
+    animationDuration={0.9}
     shadow={'red'}
     scaleSize={true}
     underlined={true}
     underlineColor={'#9A8541'}
     onAnimationEnd={()=>{}}/>);
 
+  const devFontScale = 0.8;
+  const devTextContent = "<Web Development>";
+  const devTextWidth = devTextContent.length * horizontalScale * devFontScale;
+  const devTextHeight = devFontScale * verticalScale;
   const DeveloperText = (<StyledText
-    textContent={"<Web Development>"}
+    textContent={devTextContent}
     onClick={()=>{console.log('Navigating to Projects/Archive')}}
-    bottom={"155px"}
-    right={'14vw'}
-    fontScale={1}
+    bottom={`calc(50vh - 140px)`}
+    left={`calc(50vw - ${devTextWidth/2}px)`}
+    fontScale={devFontScale}
     opacity={devOpacity}
     onHover={() => { setDevOpacity(highlight); }}
     onUnhover={() => { setDevOpacity(noHighlight); }}
     color={'#DAC071'}
-    animationName={'slideInUpDark'}
-    underlineEnter={'slideInRightDark'}
+    animationName={'fadeInDark'}
+    underlineEnter={'fadeIn'}
     underlineExit={'fadeOut'}
-    underlinePadding={4}
-    animationDuration={2.3}
+    underlinePadding={6}
+    underlined={true}
+    underlineColor={'#9A8541'}
+    animationDuration={1.1}
     shadow={'red'}
     shadowOffset={0.5}
-    underlineColor={'#9A8541'}
     onAnimationEnd={()=>{}}
   />);
 
+  // const lineOptions = {
+  //   direction: 'horizontal',
+  //   width: '1px',
+  //   length: '100px',
+  //   bottom: `calc(50vh - 112px)`,
+  //   left: `calc(50vw - 50px)`,
+  //   color: '#9A8541',
+  //   animationName: 'fadeInDark',
+  //   animationDuration: 1
+  // }
+  //
+  // const Line_1 = (<SimpleLine options={lineOptions}/>);
+
+  const consFontScale = 0.8;
+  const consTextContent = "<Software Consultation>";
+  const consTextWidth = consTextContent.length * horizontalScale * consFontScale;
+  const consTextHeight = consFontScale * verticalScale;
   const ConsultText = (<StyledText
-    textContent={"<Software Consultation>"}
+    textContent={consTextContent}
     onClick={()=>{console.log('Navigating to Projects/Archive')}}
-    bottom={"155px"}
-    right={'calc(14vw + 233px)'}
-    fontScale={1}
+    bottom={`calc(50vh - 105px)`}
+    left={`calc(50vw - ${consTextWidth/2}px)`}
+    fontScale={consFontScale}
     opacity={consultOpacity}
     onHover={() => { setConsultOpacity(highlight); }}
     onUnhover={() => { setConsultOpacity(noHighlight); }}
     color={'#DAC071'}
-    animationName={'slideInFarUpDark'}
-    underlineEnter={'slideInRightDark'}
-    underlineExit={'fadeOut'}
-    underlinePadding={4}
-    animationDuration={2.25}
+    animationName={'fadeInDark'}
+    underlined={true}
+    underlineEnter={'fadeIn'}
+    underlineExit={'none'}
+    underlinePadding={6}
+    animationDuration={1}
     shadow={'red'}
     shadowOffset={0.5}
     underlineColor={'#9A8541'}
@@ -104,7 +136,7 @@ const LandingPage = React.memo((props) => {
   return(<div className="landingPage">
     {LogoText}
     {NameText}
-    {(ConsultText)}
+    {ConsultText}
     {DeveloperText}
   </div>);
 });
