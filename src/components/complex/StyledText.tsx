@@ -154,7 +154,6 @@ const StyledText: React.FC<IFs.AnyJSON> = (props) => {
     animationEndCallback();
     setFinishAnimation(true);
   }
-  console.log("Why");
   // hover schema for underlining text
   let waitAnimation = true;
   if (props.waitAnimation === false) waitAnimation = false;

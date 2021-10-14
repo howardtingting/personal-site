@@ -8,18 +8,18 @@ export const isColor = (strColor:string): boolean => {
 
 export const validCss = (propName:string, propVal:any): boolean => {
   const s = document.createElement('div').style;
-  s[<any>propName] = propVal;
-  const finalCssVal:string = s[<any>propName];
+  s[propName as any] = propVal;
+  const finalCssVal:string = s[propName as any];
   return ((finalCssVal !== '') && (typeof finalCssVal !== 'undefined'));
 }
 
 export const getScreenType = (width:number, height?:number) => {
   if (width < 1926 && width > 910) {
-    return ['laptop', 'laptop'];
+    return 'laptop';
   } else if (width >= 1926) {
-    return ['wide', 'wide'];
+    return 'wide';
   } else {
-    return ['mobile', 'mobile'];
+    return 'mobile';
   }
 }
 const pxTypes = ['top', 'bottom', 'right', 'left', 'width', 'height', 'borderWidth'];
@@ -71,7 +71,6 @@ export const defaultProps_ = (props: AnyJSON, excludeTypes:any[]=[]) => {
   });
   // Set defaults
   Object.keys(propTypes).forEach((propName) => {
-    const propVal:any = propTypes[propName];
     style[propName] = validCss(propName, props[propName]) ? props[propName] : propTypes[propName];
   });
 

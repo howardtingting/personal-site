@@ -14,21 +14,22 @@ import './css/defaults/index.css';
 function App() {
   const [windowType, setWindowType] = useState(getScreenType(window.innerWidth));
   //const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  //1926-3600
   //910-1926
   //480-910
-  //1926-3600
   useEffect(() => {
     const handleResize = debounce(() => {
-      let [realWidth, realHeight] = getScreenType(window.innerWidth);
-      let [virtualWidth, virtualHeight] = windowType;
+      let realWidth = getScreenType(window.innerWidth);
+      let virtualWidth = windowType;
       if (realWidth !== virtualWidth) {
-        setWindowType([realWidth, realHeight]);
+        setWindowType(realWidth);
       }
     }, 50);
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     }
+    // About: History of self
   });
   /*
   {
@@ -44,7 +45,6 @@ function App() {
   */
   // Info: Services provided, pricing, etc.
   // Military Tech: SJIU
-  // About: History of self
   // Contact: contact info
   const leftNavList = [
     {
@@ -124,8 +124,8 @@ function App() {
         width={'100vw'}
         height={'100vh'}
         animationDuration={5}/>
-      {windowType[0] !== 'mobile' && (<laptop.LandingPage/>)}
-      {windowType[0] === 'mobile' && (<mobile.LandingPage/>)}
+      {windowType !== 'mobile' && (<laptop.LandingPage/>)}
+      {windowType === 'mobile' && (<mobile.LandingPage/>)}
     </div>
   );
 }

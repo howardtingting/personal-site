@@ -1,55 +1,62 @@
 import * as IFs from '../interfaces/interfaces';
 import React from 'react';
 import 'animate.css';
-import { defaultProps_ } from '../utils/typeCheck';
+import { defaultProps, getScreenType } from '../utils/typeCheck';
 
 const SimpleCircle: React.FC<IFs.AnyJSON>  = (props) => {
-  props = defaultProps_(props.options);
+  const defaults = {
+    position: 'absolute',
+    cursor: 'auto',
+    opacity: 1,
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    width: 0,
+    height: 0,
+    color: 'white',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    animationName: 'none',
+    animationDuration: 1,
+    animationDirection: 'normal',
+    animationIterationCount: 1,
+    animationDelay: 0,
+    animationFillMode: 'both',
+    onAnimationEnd: () => {},
+    zIndex: 'auto',
+    onClick: () => {},
+    windowType: getScreenType(window.innerWidth),
+    fill: props.options.fill ? props.options.fill : false,
+    content: props.options.content ? props.options.content : ''
+  };
+  props = defaultProps(props.options, defaults);
   let position,
-    cursor,
-    opacity,
-    top,
-    bottom,
-    right,
-    left,
-    width,
-    height,
-    color,
-    borderStyle,
-    borderWidth,
-    animationName,
-    animationDuration,
-    animationDirection,
-    animationIterationCount,
-    animationDelay,
-    animationFillMode,
-    onAnimationEnd,
-    onClick,
-    windowType,
-    zIndex;
+      cursor,
+      opacity,
+      top,
+      bottom,
+      right,
+      left,
+      width,
+      height,
+      color,
+      borderStyle,
+      borderWidth,
+      animationName,
+      animationDuration,
+      animationDirection,
+      animationIterationCount,
+      animationDelay,
+      animationFillMode,
+      onAnimationEnd,
+      zIndex,
+      onClick,
+      windowType,
+      fill,
+      content;
   ({
-    position,
-    cursor,
-    opacity,
-    top,
-    bottom,
-    right,
-    left,
-    width,
-    height,
-    color,
-    borderStyle,
-    borderWidth,
-    animationName,
-    animationDuration,
-    animationDirection,
-    animationIterationCount,
-    animationDelay,
-    animationFillMode,
-    onAnimationEnd,
-    onClick,
-    windowType,
-    zIndex
+    position, cursor, opacity, top, bottom, right, left, width, height, color, borderStyle, borderWidth, animationName, animationDuration, animationDirection, animationIterationCount, animationDelay, animationFillMode, onAnimationEnd, zIndex, onClick, windowType, fill, content
   } = props);
   const centerX = `calc(50vw - ${parseInt(width)/2}px)`
   const centerY = `calc(50vh - ${parseInt(height)/2}px)`
@@ -83,7 +90,7 @@ const SimpleCircle: React.FC<IFs.AnyJSON>  = (props) => {
   }
   return(
     <div style={style} onClick={onClick}>
-      <span style={{color:'white'}}>{props.content}</span>
+      <span style={{color:'white'}}>{content}</span>
     </div>)
 }
 

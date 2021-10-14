@@ -4,7 +4,7 @@ import SimpleCircle from '../SimpleCircle';
 import Borders from './Borders';
 import Burger from '../icons/Burger'
 import { useState } from 'react'
-import { isColor, getScreenType, defaultProps_ } from '../../utils/typeCheck';
+import { isColor, getScreenType, defaultProps } from '../../utils/typeCheck';
 import * as IFs from '../../interfaces/interfaces';
 /*
 Usage:
@@ -60,8 +60,6 @@ const checkNavProps: (props: IFs.AnyJSON) => IFs.AnyJSON = (props) => {
   } else {
     finalProps.underlineColor = 'none';
   }
-  finalProps.animationName = props.animationName || 'fadeIn';
-  finalProps.animationDuration = props.animationDuration || 2;
   if (props.underlineEnter || props.underlineExit || props.underlineColor) {
     finalProps.underlineEnter = props.underlineEnter || 'fadeIn';
     finalProps.underlineExit = props.underlineExit || 'fadeOut';
@@ -69,6 +67,8 @@ const checkNavProps: (props: IFs.AnyJSON) => IFs.AnyJSON = (props) => {
     finalProps.underlineEnter = 'none';
     finalProps.underlineExit = 'none';
   }
+  finalProps.animationName = props.animationName || 'fadeIn';
+  finalProps.animationDuration = props.animationDuration || 2;
   finalProps.highlight = props.highlight || false;
   finalProps.leftNavInputs = props.leftNavInputs || [...defaultNavInputs];
   finalProps.rightNavInputs = props.rightNavInputs || [...defaultNavInputs];
@@ -78,7 +78,30 @@ const checkNavProps: (props: IFs.AnyJSON) => IFs.AnyJSON = (props) => {
 }
 
 const StyledNav = (props: IFs.AnyJSON) => {
-  props = defaultProps_(props);
+  const defaults = {
+    screen: props.screen || getScreenType(window.innerWidth),
+    scale: props.scale || 1,
+    verticalSpace: props.verticalSpace || 30,
+    xPos: props.xPos || '20px',
+    yPos: props.yPos || '20px',
+    fontWeight: props.fontWeight || 300,
+    direction: props.direction ? props.direction : 'horizontal',
+    border: props.border || false,
+    color: isColor(props.color) ? props.color : 'black',
+    shadow: isColor(props.shadow) ? props.shadow : 'black',
+    bgColor: props.bgColor || 'none',
+    underlineColor: props.underlineColor || props.color || 'none',
+    underlineEnter: (props.underlineEnter || props.underlineExit || props.underlineColor) ?  (props.underlineEnter ? props.underlineEnter : 'fadeIn') : 'none',
+    underlineExit: (props.underlineEnter || props.underlineExit || props.underlineColor) ?  (props.underlineExit ? props.underlineExit : 'fadeOut') : 'none',
+    animationName: props.animationName || 'fadeIn',
+    animationDuration: props.animationDuration || 2,
+    highlight: props.highlight || false,
+    leftNavInputs: props.leftNavInputs || [...defaultNavInputs],
+    rightNavInputs: props.rightNavInputs || [...defaultNavInputs],
+    leftPadding: props.leftPadding || 0,
+    rightPadding: props.rightPadding || 0
+  }
+  props = defaultProps(props, defaults);
   let scale: number,
       verticalSpace: number,
       xPos: IFs.cssDimensions | number,
@@ -118,7 +141,7 @@ const StyledNav = (props: IFs.AnyJSON) => {
     rightNavInputs,
     leftPadding,
     rightPadding
-  } = checkNavProps(props));
+  } = props);
   /* FONT SCALING */
   let horizontalScale = 11.51375,
       verticalScale = 22;
@@ -292,6 +315,7 @@ const StyledNav = (props: IFs.AnyJSON) => {
   const circleOptions = {
     width: radius,
     height: radius,
+    cursor: 'pointer',
     borderWidth: 2,
     fill: true,
     top: `calc(50vh - ${radius/2}px)`,
@@ -305,11 +329,11 @@ const StyledNav = (props: IFs.AnyJSON) => {
 
   const mobileNavCircle = (<SimpleCircle options={circleOptions}/>);
 
-  return (<>
-    {(props.windowType[0] === 'mobile') && mobileNavCircle}
-    {(props.windowType[0] !== 'mobile') && leftNavExpanded}
-    {(props.windowType[0] !== 'mobile') && rightNav}
-    </>);
+  return (<div style={{width:'100%', height:'100%'}}>
+    {(props.windowType !== 'mobile') && mobileNavCircle}
+    {(props.windowType !== 'mobile') && leftNavExpanded}
+    {(props.windowType !== 'mobile') && rightNav}
+    </div>);
 }
 
 export default StyledNav;

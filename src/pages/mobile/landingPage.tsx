@@ -1,8 +1,8 @@
 // LANDING PAGE
 import React from 'react';
 import StyledText from '../../components/complex/StyledText';
-import SimpleLine from '../../components/SimpleLine';
-import { useState, useEffect } from 'react';
+// import SimpleLine from '../../components/SimpleLine';
+import { useState } from 'react';
 
 /*
 1. Title
@@ -15,7 +15,7 @@ const LandingPage = React.memo((props) => {
   //480-910
   //1860-3600
   const highlight = 1;
-  const noHighlight = 0.8;
+  const noHighlight = 0.6;
   const [logoOpacity, setLogoOpacity] = useState(highlight)
   const [nameOpacity, setNameOpacity] = useState(noHighlight);
   const [devOpacity, setDevOpacity] = useState(noHighlight);
@@ -53,6 +53,8 @@ const LandingPage = React.memo((props) => {
     left={`calc(50vw - ${nameTextWidth/2}px)`}
     fontScale={nameFontScale}
     opacity={nameOpacity}
+    onHover={() => { setNameOpacity(noHighlight); }}
+    onUnhover={() => { setNameOpacity(highlight); }}
     color={'#DAC071'}
     animationName={'fadeInDark'}
     underlineEnter={'fadeIn'}
