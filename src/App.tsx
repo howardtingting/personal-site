@@ -1,13 +1,13 @@
 import React from 'react';
-import StyledNav from './components/complex/StyledNav.js';
-import SimpleCircle from './components/SimpleCircle.js';
-import Borders from './components/complex/Borders.js';
-import * as laptop from './pages/laptop/laptop.js';
-import * as mobile from './pages/mobile/mobile.js';
+import StyledNav from './components/complex/StyledNav';
+import SimpleCircle from './components/SimpleCircle';
+import Borders from './components/complex/Borders';
+import * as laptop from './pages/laptop/laptop';
+import * as mobile from './pages/mobile/mobile';
 import { useState, useEffect } from 'react';
-import debounce from './utils/debounce.js';
-import * as scrollControl from './utils/scrollControl.js';
-import {getScreenType} from './utils/typeCheck.js';
+import debounce from './utils/debounce';
+import * as scrollControl from './utils/scrollControl';
+import {getScreenType} from './utils/typeCheck';
 import './css/defaults/normalize.css';
 import './css/defaults/index.css';
 
