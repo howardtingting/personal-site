@@ -115,8 +115,6 @@ function App() {
     underlineColor={lineColor}
     underlineEnter={'slideInLeftDark'}
     windowType={windowType}/>);
-  //const MobileNav = ({});
-  //{(windowType[0] == 'mobile') && (MobileNav)}
   return (
     <div className="container">
       {LeftNav}
@@ -124,8 +122,8 @@ function App() {
         width={'100vw'}
         height={'100vh'}
         animationDuration={5}/>
-      {windowType !== 'mobile' && (<laptop.LandingPage/>)}
-      {windowType === 'mobile' && (<mobile.LandingPage/>)}
+      {(windowType != 'mobile') && (<laptop.LandingPage/>)}
+      {(windowType == 'mobile') && (<mobile.LandingPage/>)}
     </div>
   );
 }

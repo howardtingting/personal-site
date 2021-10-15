@@ -27,4 +27,4 @@ export interface AnyJSON {
 }
 
 //specific types
-type screenType = 'mobile' | 'laptop' | 'wide';
+export type screenType = 'mobile' | 'laptop' | 'wide';

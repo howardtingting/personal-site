@@ -2,7 +2,7 @@
 
 html {
   background-color: transparent;
-  height: 100%;
+  height: calc(100%);
   font-size: 100%;
 }
 

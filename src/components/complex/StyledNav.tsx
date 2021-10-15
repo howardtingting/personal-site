@@ -19,87 +19,53 @@ Usage:
   underlineEnter={'fadeInLeft'}
   underlineColor={'linear-gradient(90deg, #000 0%, #DFC274 5%, #887534 35%, #DAC071 85%, #000 100%)'}/>
 */
-const defaultNavInputs = [
-  {
-    text: 'Sample Nav 1',
-    url: '/',
-    clickHandler: ((url='/') => () => {window.open(url)})
-  },
-  {
-    text: 'Sample Nav 2',
-    url: '/',
-    clickHandler: ((url='/') => () => {window.open(url)})
-  },
-  {
-    text: 'Sample Nav 3',
-    url: '/',
-    clickHandler: ((url='/') => () => {window.open(url)})
-  },
-  {
-    text: 'Sample Nav 4',
-    url: '/',
-    clickHandler: ((url='/') => () => {window.open(url)})
-  },
-]
-const checkNavProps: (props: IFs.AnyJSON) => IFs.AnyJSON = (props) => {
-  const finalProps: IFs.AnyJSON = {}
-  finalProps.screen = props.screen || getScreenType(window.innerWidth);
-  finalProps.scale = props.scale || 1;
-  finalProps.verticalSpace = props.verticalSpace || 30;
-  finalProps.xPos = props.xPos || '20px';
-  finalProps.yPos = props.yPos || '20px';
-  finalProps.fontWeight = props.fontWeight || 300;
-  finalProps.direction = props.direction ? props.direction : 'horizontal';
-  finalProps.border = props.border || false;
-
-  finalProps.color = isColor(props.color) ? props.color : 'black';
-  finalProps.shadow = isColor(props.shadow) ? props.shadow : 'black';
-  finalProps.bgColor = props.bgColor || 'none';
-  if (props.underlineColor) {
-    finalProps.underlineColor = props.underlineColor || finalProps.color;
-  } else {
-    finalProps.underlineColor = 'none';
-  }
-  if (props.underlineEnter || props.underlineExit || props.underlineColor) {
-    finalProps.underlineEnter = props.underlineEnter || 'fadeIn';
-    finalProps.underlineExit = props.underlineExit || 'fadeOut';
-  } else {
-    finalProps.underlineEnter = 'none';
-    finalProps.underlineExit = 'none';
-  }
-  finalProps.animationName = props.animationName || 'fadeIn';
-  finalProps.animationDuration = props.animationDuration || 2;
-  finalProps.highlight = props.highlight || false;
-  finalProps.leftNavInputs = props.leftNavInputs || [...defaultNavInputs];
-  finalProps.rightNavInputs = props.rightNavInputs || [...defaultNavInputs];
-  finalProps.leftPadding = props.leftPadding || 0;
-  finalProps.rightPadding = props.rightPadding || 0;
-  return finalProps;
-}
 
 const StyledNav = (props: IFs.AnyJSON) => {
+  const defaultNavInputs = [
+    {
+      text: 'Sample Nav 1',
+      url: '/',
+      clickHandler: ((url='/') => () => {window.open(url)})
+    },
+    {
+      text: 'Sample Nav 2',
+      url: '/',
+      clickHandler: ((url='/') => () => {window.open(url)})
+    },
+    {
+      text: 'Sample Nav 3',
+      url: '/',
+      clickHandler: ((url='/') => () => {window.open(url)})
+    },
+    {
+      text: 'Sample Nav 4',
+      url: '/',
+      clickHandler: ((url='/') => () => {window.open(url)})
+    },
+  ]
   const defaults = {
-    screen: props.screen || getScreenType(window.innerWidth),
-    scale: props.scale || 1,
-    verticalSpace: props.verticalSpace || 30,
-    xPos: props.xPos || '20px',
-    yPos: props.yPos || '20px',
     fontWeight: props.fontWeight || 300,
-    direction: props.direction ? props.direction : 'horizontal',
+    height: 'calc(100vh)',
     border: props.border || false,
     color: isColor(props.color) ? props.color : 'black',
-    shadow: isColor(props.shadow) ? props.shadow : 'black',
-    bgColor: props.bgColor || 'none',
     underlineColor: props.underlineColor || props.color || 'none',
     underlineEnter: (props.underlineEnter || props.underlineExit || props.underlineColor) ?  (props.underlineEnter ? props.underlineEnter : 'fadeIn') : 'none',
     underlineExit: (props.underlineEnter || props.underlineExit || props.underlineColor) ?  (props.underlineExit ? props.underlineExit : 'fadeOut') : 'none',
     animationName: props.animationName || 'fadeIn',
     animationDuration: props.animationDuration || 2,
+    direction: props.direction ? props.direction : 'horizontal',
     highlight: props.highlight || false,
     leftNavInputs: props.leftNavInputs || [...defaultNavInputs],
     rightNavInputs: props.rightNavInputs || [...defaultNavInputs],
     leftPadding: props.leftPadding || 0,
-    rightPadding: props.rightPadding || 0
+    rightPadding: props.rightPadding || 0,
+    windowType: props.windowType || getScreenType(window.innerWidth),
+    shadow: isColor(props.shadow) ? props.shadow : 'black',
+    bgColor: props.bgColor || 'none',
+    scale: props.scale || 1,
+    verticalSpace: props.verticalSpace || 30,
+    xPos: props.xPos || '20px',
+    yPos: props.yPos || '20px',
   }
   props = defaultProps(props, defaults);
   let scale: number,
@@ -108,6 +74,7 @@ const StyledNav = (props: IFs.AnyJSON) => {
       yPos: IFs.cssDimensions | number,
       fontWeight: number,
       direction: 'horizontal' | 'vertical',
+      windowType: IFs.screenType,
       border: IFs.cssDimensions | number,
       color: string,
       bgColor: string,
@@ -120,7 +87,8 @@ const StyledNav = (props: IFs.AnyJSON) => {
       leftNavInputs: Array<IFs.AnyJSON>,
       rightNavInputs: Array<IFs.AnyJSON>,
       leftPadding: IFs.cssDimensions | number,
-      rightPadding: IFs.cssDimensions | number;
+      rightPadding,
+      height: IFs.cssDimensions | number;
   ({
     scale,
     verticalSpace,
@@ -128,6 +96,7 @@ const StyledNav = (props: IFs.AnyJSON) => {
     yPos,
     fontWeight,
     direction,
+    windowType,
     border,
     color,
     bgColor,
@@ -140,7 +109,8 @@ const StyledNav = (props: IFs.AnyJSON) => {
     leftNavInputs,
     rightNavInputs,
     leftPadding,
-    rightPadding
+    rightPadding,
+    height
   } = props);
   /* FONT SCALING */
   let horizontalScale = 11.51375,
@@ -330,7 +300,7 @@ const StyledNav = (props: IFs.AnyJSON) => {
   const mobileNavCircle = (<SimpleCircle options={circleOptions}/>);
 
   return (<div style={{width:'100%', height:'100%'}}>
-    {(props.windowType !== 'mobile') && mobileNavCircle}
+    {(props.windowType === 'mobile') && mobileNavCircle}
     {(props.windowType !== 'mobile') && leftNavExpanded}
     {(props.windowType !== 'mobile') && rightNav}
     </div>);

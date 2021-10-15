@@ -87,7 +87,9 @@ export const defaultProps_ = (props: AnyJSON, excludeTypes:any[]=[]) => {
   return style;
 }
 
-//Shape of props, defaults, and output of defaultProps() is determined by caller
+//defaultProps assigns default key:value's to props if
+//1. !key in props
+//2. validCss(key), but props[key] isn't a valid css value for key
 export const defaultProps: (props: AnyJSON, defaults: AnyJSON) => AnyJSON = (props: AnyJSON, defaults: AnyJSON) => {
   const finalProp: AnyJSON = {}
   pxTypes.forEach((type) => {
@@ -110,7 +112,7 @@ export const defaultProps: (props: AnyJSON, defaults: AnyJSON) => AnyJSON = (pro
     if (validCss(propName, defaults[propName])) {
       finalProp[propName] = validCss(propName, props[propName]) ? props[propName] : defaults[propName];
     } else {
-      finalProp[propName] = defaults[propName]
+      finalProp[propName] = props.hasOwnProperty(propName) ? props[propName] : defaults[propName];
     }
   });
   return finalProp;
